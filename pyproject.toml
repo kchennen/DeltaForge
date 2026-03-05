@@ -1,0 +1,74 @@
+[project]
+name = "deltaforge"
+version = "0.1.0"
+license = { file = "LICENSE" }
+description = "Toolbox utilities for data wrangling."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dash>=4.0.0",
+    "dash-iconify>=0.1.2",
+    "dash-mantine-components>=2.6.0",
+    "gunicorn>=23.0.0",
+    "polars>=1.38.1",
+]
+
+[tool.uv.workspace]
+members = ["apps/*"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+exclude = ["tests/"]
+
+
+[[tool.mypy.overrides]]
+module = [
+    "dash",
+    "dash.*",
+    "dash_mantine_components",
+    "dash_mantine_components.*",
+    "diff_match_patch",
+    "diff_match_patch.*",
+    "fitz",
+    "fitz.*",
+    "numpy",
+    "numpy.*",
+    "PIL",
+    "PIL.*",
+    "pixelmatch",
+    "pixelmatch.*",
+    "playwright",
+    "playwright.*",
+    "openpyxl",
+    "openpyxl.*",
+    "polars",
+    "polars.*",
+    "reportlab",
+    "reportlab.*",
+    "dash_iconify",
+    "dash_iconify.*",
+]
+ignore_missing_imports = true
+follow_untyped_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["apps"]
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.4",
+]
