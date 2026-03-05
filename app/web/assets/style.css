@@ -1,0 +1,698 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DeltaForge — Design System
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Fonts ────────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Design tokens ────────────────────────────────────────────────────────── */
+:root {
+    --dc-font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code',
+        ui-monospace, 'Courier New', monospace;
+    --dc-font-size-mono: 13px;
+    --dc-line-height-mono: 1.65;
+    --dc-radius-card: var(--mantine-radius-lg);
+    --dc-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --dc-section-label-size: 11px;
+}
+
+/* ── Glassmorphic Header ──────────────────────────────────────────────────── */
+.mantine-AppShellHeader-root {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.82) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+[data-mantine-color-scheme="dark"] .mantine-AppShellHeader-root {
+    background-color: rgba(17, 17, 21, 0.85) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* ── Logo Mark ────────────────────────────────────────────────────────────── */
+.dc-logomark {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    flex-shrink: 0;
+    letter-spacing: -1px;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.38);
+    user-select: none;
+}
+
+/* Small variant for footer */
+.dc-logomark--sm {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(124, 58, 237, 0.28);
+}
+
+/* ── Wordmark ─────────────────────────────────────────────────────────────── */
+.dc-wordmark {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.35px;
+    color: var(--mantine-color-text);
+}
+
+/* ── Theme toggle icon ────────────────────────────────────────────────────── */
+.dc-theme-icon {
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
+    color: var(--mantine-color-dimmed);
+}
+
+/* ── Nav Links ────────────────────────────────────────────────────────────── */
+.dc-nav-link {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--mantine-color-dimmed);
+    text-decoration: none !important;
+    transition: color 0.12s ease, background-color 0.12s ease;
+    white-space: nowrap;
+    letter-spacing: -0.1px;
+}
+
+.dc-nav-link:hover {
+    color: var(--mantine-color-text);
+    background-color: var(--mantine-color-default-hover);
+    text-decoration: none !important;
+}
+
+.dc-nav-link.active {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+[data-mantine-color-scheme="dark"] .dc-nav-link.active {
+    color: #a78bfa;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+/* Glassmorphic surface matching the header */
+.mantine-AppShellFooter-root {
+    position: relative;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.82) !important;
+    border-top: none !important;
+}
+
+[data-mantine-color-scheme="dark"] .mantine-AppShellFooter-root {
+    background-color: rgba(17, 17, 21, 0.85) !important;
+}
+
+/* Gradient top border — glowing violet arc */
+.mantine-AppShellFooter-root::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(124, 58, 237, 0.0) 5%,
+            rgba(124, 58, 237, 0.55) 30%,
+            rgba(79, 70, 229, 0.7) 50%,
+            rgba(124, 58, 237, 0.55) 70%,
+            rgba(124, 58, 237, 0.0) 95%,
+            transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Brand name in footer */
+.dc-footer-brand {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: -0.25px;
+    color: var(--mantine-color-dimmed);
+    transition: color 0.12s ease;
+}
+
+a:hover .dc-footer-brand {
+    color: var(--mantine-color-text);
+}
+
+/* Italic personal attribution */
+.dc-footer-attribution {
+    font-size: 11px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--mantine-color-dimmed);
+    letter-spacing: 0.01em;
+    opacity: 0.65;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 340px;
+}
+
+/* Dot separator between badge and text */
+.dc-footer-sep {
+    font-size: 11px;
+    color: var(--mantine-color-dimmed);
+    opacity: 0.45;
+    user-select: none;
+}
+
+/* "Open source" micro-badge */
+.dc-footer-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--mantine-color-violet-6);
+    background: var(--mantine-color-violet-0);
+    border: 1px solid var(--mantine-color-violet-3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    white-space: nowrap;
+    line-height: 1.6;
+}
+
+[data-mantine-color-scheme="dark"] .dc-footer-badge {
+    color: var(--mantine-color-violet-4);
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.28);
+}
+
+a.dc-footer-badge--link {
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+}
+
+a.dc-footer-badge--link:hover {
+    opacity: 0.75;
+}
+
+/* "Built with …" text */
+.dc-footer-built {
+    font-size: 11.5px;
+    color: var(--mantine-color-dimmed);
+    white-space: nowrap;
+}
+
+/* Technology names (Dash, Mantine) — slightly accented */
+.dc-footer-tech {
+    font-weight: 600;
+    color: var(--mantine-color-text);
+    opacity: 0.75;
+}
+
+/* Icon links (GitHub, X) */
+.dc-footer-svg-icon {
+    display: block;
+    flex-shrink: 0;
+    color: inherit;
+}
+
+.dc-footer-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    color: var(--mantine-color-dimmed);
+    text-decoration: none !important;
+    transition: color 0.14s ease, background-color 0.14s ease;
+    flex-shrink: 0;
+}
+
+.dc-footer-icon-link:hover {
+    color: var(--mantine-color-text);
+    background-color: var(--mantine-color-default-hover);
+}
+
+[data-mantine-color-scheme="dark"] .dc-footer-icon-link:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+/* "Report a bug" text+icon action link */
+.dc-footer-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--mantine-color-dimmed);
+    text-decoration: none !important;
+    padding: 3px 8px;
+    border-radius: 6px;
+    transition: color 0.14s ease, background-color 0.14s ease;
+    white-space: nowrap;
+}
+
+.dc-footer-action-link:hover {
+    color: var(--mantine-color-violet-6);
+    background-color: var(--mantine-color-violet-0);
+    text-decoration: none !important;
+}
+
+[data-mantine-color-scheme="dark"] .dc-footer-action-link:hover {
+    color: var(--mantine-color-violet-4);
+    background-color: rgba(124, 58, 237, 0.08);
+}
+
+/* Legacy nav link (kept for compatibility) */
+.dc-footer-link {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mantine-color-dimmed);
+    text-decoration: none !important;
+    padding: 3px 7px;
+    border-radius: 5px;
+    transition: color 0.12s ease, background-color 0.12s ease;
+    white-space: nowrap;
+}
+
+.dc-footer-link:hover {
+    color: var(--mantine-color-text);
+    background-color: var(--mantine-color-default-hover);
+    text-decoration: none !important;
+}
+
+/* ── Hero Section ─────────────────────────────────────────────────────────── */
+.dc-hero {
+    background: linear-gradient(150deg,
+            var(--mantine-color-violet-0) 0%,
+            var(--mantine-color-indigo-0) 55%,
+            var(--mantine-color-blue-0) 100%);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-mantine-color-scheme="dark"] .dc-hero {
+    background: linear-gradient(150deg,
+            rgba(124, 58, 237, 0.08) 0%,
+            rgba(79, 70, 229, 0.05) 55%,
+            rgba(37, 99, 235, 0.03) 100%);
+}
+
+/* Radial light bursts */
+.dc-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(ellipse at 15% 60%, rgba(124, 58, 237, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, rgba(79, 70, 229, 0.05) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Dot grid overlay */
+.dc-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle,
+            rgba(124, 58, 237, 0.1) 1px,
+            transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+}
+
+[data-mantine-color-scheme="dark"] .dc-hero::after {
+    opacity: 0.25;
+}
+
+/* Stack the hero children above the ::before / ::after layers */
+.dc-hero>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Feature Cards (home page) ────────────────────────────────────────────── */
+.dc-feature-card-link {
+    text-decoration: none !important;
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    cursor: pointer;
+}
+
+.dc-feature-card {
+    transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    box-shadow: var(--dc-shadow-card);
+    cursor: pointer;
+    flex: 1;
+}
+
+.dc-feature-card-link:hover .dc-feature-card {
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.07),
+        0 0 0 1.5px rgba(124, 58, 237, 0.22) !important;
+}
+
+[data-mantine-color-scheme="dark"] .dc-feature-card-link:hover .dc-feature-card {
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.4),
+        0 0 0 1.5px rgba(167, 139, 250, 0.28) !important;
+}
+
+/* ── KPI Stat Cards (duplicates page) ────────────────────────────────────── */
+.dc-kpi-card {
+    transition: box-shadow 0.18s ease;
+    box-shadow: var(--dc-shadow-card);
+}
+
+.dc-kpi-card:hover {
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-mantine-color-scheme="dark"] .dc-kpi-card:hover {
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── Feature Highlight Row ────────────────────────────────────────────────── */
+.dc-highlight-divider {
+    width: 1px;
+    background: var(--mantine-color-default-border);
+    align-self: stretch;
+}
+
+/* ── Page header (tool pages) ─────────────────────────────────────────────── */
+/* Shared sticky header row with icon + title + actions */
+.dc-page-header {
+    padding-bottom: 4px;
+}
+
+/* ── Section labels (sidebar + table headers) ─────────────────────────────── */
+/* Use this class on any <Text> acting as a group label */
+.dc-section-label {
+    font-size: var(--dc-section-label-size) !important;
+    font-weight: 600 !important;
+    color: var(--mantine-color-dimmed) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1 !important;
+}
+
+/* ── Upload Zones ─────────────────────────────────────────────────────────── */
+.dc-upload-zone {
+    border: 2px dashed var(--mantine-color-gray-4) !important;
+    border-radius: 12px !important;
+    transition: border-color 0.2s ease, background-color 0.2s ease !important;
+}
+
+.dc-upload-zone:hover {
+    border-color: var(--mantine-color-violet-5) !important;
+    background-color: var(--mantine-color-violet-0) !important;
+}
+
+[data-mantine-color-scheme="dark"] .dc-upload-zone:hover {
+    border-color: var(--mantine-color-violet-6) !important;
+    background-color: rgba(124, 58, 237, 0.06) !important;
+}
+
+/* ── Toolbar (sticky) ─────────────────────────────────────────────────────── */
+.dc-toolbar {
+    position: sticky;
+    top: 60px;
+    z-index: 100;
+}
+
+/* ── Diff panel wrapper + minimap ────────────────────────────────────────── */
+.dc-diff-panel-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4px;
+}
+
+/* Scrollable area that the minimap tracks */
+.dc-diff-scroll {
+    flex: 1 1 0;
+    min-width: 0;
+    /* prevent flex blowout */
+    overflow-y: auto;
+    max-height: 65vh;
+}
+
+/* The narrow strip to the right of each panel */
+.dc-minimap-wrapper {
+    width: 14px;
+    flex-shrink: 0;
+    background: var(--mantine-color-default-hover);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid var(--mantine-color-default-border);
+}
+
+/* ── Diff Panels ──────────────────────────────────────────────────────────── */
+.diff-panel {
+    font-family: var(--dc-font-mono);
+    font-size: var(--dc-font-size-mono);
+    line-height: var(--dc-line-height-mono);
+    border: 1px solid var(--mantine-color-default-border);
+    border-radius: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* ── Monospace inputs ─────────────────────────────────────────────────────── */
+/* Applied to all textarea inputs that show code/data */
+.dc-mono-input textarea {
+    font-family: var(--dc-font-mono) !important;
+    font-size: var(--dc-font-size-mono) !important;
+    line-height: var(--dc-line-height-mono) !important;
+}
+
+/* ── Table monospace cells ────────────────────────────────────────────────── */
+/* Applied to table cells showing raw values */
+.dc-mono-cell {
+    font-family: var(--dc-font-mono);
+    font-size: var(--dc-font-size-mono);
+    line-height: var(--dc-line-height-mono);
+}
+
+/* ── Diff Lines ───────────────────────────────────────────────────────────── */
+.diff-line-added {
+    background-color: #f0fdf4;
+    border-left: 3px solid #22c55e;
+}
+
+.diff-line-added .diff-line-number {
+    background-color: #dcfce7;
+    color: #16a34a;
+    border-right-color: #bbf7d0;
+}
+
+.diff-line-removed {
+    background-color: #fff1f2;
+    border-left: 3px solid #f43f5e;
+}
+
+.diff-line-removed .diff-line-number {
+    background-color: #ffe4e6;
+    color: #dc2626;
+    border-right-color: #fecaca;
+}
+
+.diff-line-equal {
+    border-left: 3px solid transparent;
+}
+
+.diff-line-replace {
+    background-color: #fffbeb;
+    border-left: 3px solid #f59e0b;
+}
+
+.diff-line-replace .diff-line-number {
+    background-color: #fef3c7;
+    color: #d97706;
+    border-right-color: #fde68a;
+}
+
+/* Dark mode diff lines */
+[data-mantine-color-scheme="dark"] .diff-line-added {
+    background-color: rgba(34, 197, 94, 0.1);
+}
+
+[data-mantine-color-scheme="dark"] .diff-line-added .diff-line-number {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border-right-color: rgba(34, 197, 94, 0.25);
+}
+
+[data-mantine-color-scheme="dark"] .diff-line-removed {
+    background-color: rgba(244, 63, 94, 0.1);
+}
+
+[data-mantine-color-scheme="dark"] .diff-line-removed .diff-line-number {
+    background-color: rgba(244, 63, 94, 0.15);
+    color: #f87171;
+    border-right-color: rgba(244, 63, 94, 0.25);
+}
+
+[data-mantine-color-scheme="dark"] .diff-line-replace {
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+[data-mantine-color-scheme="dark"] .diff-line-replace .diff-line-number {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border-right-color: rgba(245, 158, 11, 0.25);
+}
+
+/* Line number gutter */
+.diff-line-number {
+    display: inline-block;
+    width: 44px;
+    text-align: right;
+    padding: 0 8px 0 0;
+    color: var(--mantine-color-dimmed);
+    user-select: none;
+    border-right: 1px solid var(--mantine-color-default-border);
+    margin-right: 10px;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+
+/* Inline segment highlights (word/char level) */
+.diff-segment-added {
+    background-color: rgba(34, 197, 94, 0.3);
+    border-radius: 2px;
+    padding: 1px 0;
+}
+
+.diff-segment-removed {
+    background-color: rgba(244, 63, 94, 0.3);
+    border-radius: 2px;
+    padding: 1px 0;
+    text-decoration: line-through;
+}
+
+[data-mantine-color-scheme="dark"] .diff-segment-added {
+    background-color: rgba(74, 222, 128, 0.25);
+}
+
+[data-mantine-color-scheme="dark"] .diff-segment-removed {
+    background-color: rgba(248, 113, 113, 0.25);
+}
+
+/* Prefix glyph (+, −, space) */
+.diff-prefix {
+    display: inline-block;
+    width: 14px;
+    font-weight: 700;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+/* Line container */
+.diff-row {
+    display: flex;
+    align-items: baseline;
+    padding: 1px 8px 1px 0;
+    min-height: 22px;
+    white-space: pre;
+}
+
+.diff-row-content {
+    flex: 1;
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-width: 0;
+}
+
+/* Empty line placeholder */
+.diff-empty-line {
+    background-color: var(--mantine-color-gray-1);
+    min-height: 22px;
+    padding: 1px 0;
+    border-left: 3px solid transparent;
+}
+
+[data-mantine-color-scheme="dark"] .diff-empty-line {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* ── Stats Bar ────────────────────────────────────────────────────────────── */
+.dc-stats-bar-track {
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--mantine-color-gray-2);
+    display: flex;
+}
+
+/* ── Scrollbar Theming ────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--mantine-color-gray-4);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--mantine-color-gray-5);
+}
+
+/* ── Animations ───────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dc-fade-in {
+    animation: fadeInUp 0.25s ease both;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .dc-hero {
+        border-radius: 14px;
+    }
+
+    .dc-footer-attribution {
+        display: none;
+    }
+}
+
+@media (max-width: 540px) {
+    .dc-footer-attribution {
+        display: none;
+    }
+}

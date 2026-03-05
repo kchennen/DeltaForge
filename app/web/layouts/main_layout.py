@@ -1,21 +1,35 @@
 import dash
 import dash_mantine_components as dmc
+from dash import dcc
+
+from app.web.layouts._constants import NAVBAR_WIDTH, THEME
+from app.web.layouts.footer import footer
+from app.web.layouts.header import header
+from app.web.layouts.navbar import navbar
 
 layout = dmc.MantineProvider(
-    dmc.AppShell(
-        [
-            dmc.AppShellHeader(
-                dmc.Group(
-                    [
-                        dmc.Title("DeltaForge", order=3),
-                    ],
-                    h="100%",
-                    px="md",
-                ),
-            ),
-            dmc.AppShellMain(dash.page_container),
-        ],
-        header={"height": 60},
-        padding="md",
-    ),
+    id="mantine-provider",
+    forceColorScheme="light",
+    theme=THEME,
+    children=[
+        dcc.Store(id="color-scheme-store", storage_type="local", data="light"),
+        dcc.Location(id="url", refresh=False),
+        dmc.AppShell(
+            id="app-shell",
+            children=[
+                header,
+                navbar,
+                dmc.AppShellMain(children=dash.page_container),
+                footer,
+            ],
+            header={"height": 60},
+            footer={"height": 60},
+            navbar={
+                "width": NAVBAR_WIDTH,
+                "breakpoint": "sm",
+                "collapsed": {"desktop": True, "mobile": True},
+            },
+            padding="md",
+        ),
+    ],
 )

@@ -6,8 +6,8 @@ install:
 dev: install
 	uv run python main.py
 
-serve: install
-	uv run gunicorn -c gunicorn.conf.py "app.web.app:server"
+run: install
+	uv run gunicorn -c gunicorn.conf.py "app.web:server"
 
 lint:
 	uv run ruff check .
