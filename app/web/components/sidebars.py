@@ -216,13 +216,154 @@ def text_diff_sidebar() -> dmc.Stack:
     )
 
 
+def duplicates_sidebar() -> dmc.Stack:
+    """Sidebar controls for the duplicate counter page."""
+    return dmc.Stack(
+        children=[
+            # Sort By
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "Sort by",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.SegmentedControl(
+                        id="dupes-sort-by",
+                        data=[
+                            {"label": "Count", "value": "count"},
+                            {"label": "Line", "value": "line"},
+                        ],
+                        value="count",
+                        size="xs",
+                        radius="md",
+                        fullWidth=True,
+                    ),
+                ],
+                gap="xs",
+            ),
+            dmc.Divider(),
+            # Values filter
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "Values",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.SegmentedControl(
+                        id="dupes-values",
+                        data=[
+                            {"label": "All", "value": "all"},
+                            {"label": "Duplicates", "value": "duplicates"},
+                            {"label": "Singletons", "value": "singletons"},
+                        ],
+                        value="all",
+                        size="xs",
+                        radius="md",
+                        fullWidth=True,
+                        orientation="vertical",
+                    ),
+                ],
+                gap="xs",
+            ),
+            dmc.Divider(),
+            # Format
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "Format",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.SegmentedControl(
+                        id="dupes-format",
+                        data=[
+                            {"label": "TAB", "value": "tab"},
+                            {"label": "CSV", "value": "csv"},
+                            {"label": "Text", "value": "text"},
+                        ],
+                        value="tab",
+                        size="xs",
+                        radius="md",
+                        fullWidth=True,
+                    ),
+                ],
+                gap="xs",
+            ),
+            dmc.Divider(),
+            # Top N values (chart)
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "Top values (chart)",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.Select(
+                        id="dupes-top-n",
+                        data=[
+                            {"label": "Top 5", "value": "5"},
+                            {"label": "Top 10", "value": "10"},
+                            {"label": "Top 15", "value": "15"},
+                            {"label": "Top 20", "value": "20"},
+                            {"label": "Top 25", "value": "25"},
+                        ],
+                        value="15",
+                        size="xs",
+                        radius="md",
+                        allowDeselect=False,
+                    ),
+                ],
+                gap="xs",
+            ),
+            dmc.Divider(),
+            # Include Counts Column
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "Options",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.Switch(
+                        id="dupes-include-counts",
+                        label="Include counts column",
+                        size="xs",
+                        checked=True,
+                        color="indigo",
+                    ),
+                ],
+                gap="xs",
+            ),
+        ],
+        gap="md",
+        p="md",
+    )
+
+
 # Map pathname → sidebar builder. None means no sidebar.
 _SIDEBAR_MAP: dict[str, object] = {
+    "/duplicates": duplicates_sidebar,
     "/text": text_diff_sidebar,
     # "/image": image_diff_sidebar,
     # "/pdf": pdf_diff_sidebar,
     # "/excel": excel_diff_sidebar,
-    # "/duplicates": duplicates_sidebar,
 }
 
 

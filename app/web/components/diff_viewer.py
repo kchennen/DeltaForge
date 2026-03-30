@@ -228,8 +228,6 @@ def render_inline_diff(
 
 
 # Internal helpers ######################################################################
-
-
 def _diff_line(text: str, line_num: int, diff_type: DiffType) -> html.Div:
     """Render a single diff line with line number, prefix, and CSS class coloring."""
     css_class = _LINE_CLASS[diff_type]

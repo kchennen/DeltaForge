@@ -6,7 +6,7 @@ import dash
 import dash_mantine_components as dmc
 from dash import html
 
-dash.register_page(__name__, path="/text", title="Text Diff — Diffy")
+dash.register_page(__name__, path="/text", title="DeltaForge - Text Diff")
 
 layout = dmc.Container(
     children=[

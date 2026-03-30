@@ -14,6 +14,7 @@ BIGEST_URL = "https://bigest.icube.unistra.fr/"
 
 # Navigation links (label, href) ##################################################################
 NAV_LINKS: list[tuple[str, str]] = [
+    ("Duplicates", f"{BASE_URL.rstrip('/')}/duplicates"),
     ("Text", f"{BASE_URL.rstrip('/')}/text"),
 ]
 

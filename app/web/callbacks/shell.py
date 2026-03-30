@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import dash
-from dash import ClientsideFunction, Input, Output, callback
+from dash import ClientsideFunction, Input, Output, State, callback
 
 from app.web.components.sidebars import sidebar_for
 from app.web.layouts._constants import NAVBAR_WIDTH
@@ -39,6 +39,15 @@ def register_clientside_callbacks(app: dash.Dash) -> None:
         ClientsideFunction(namespace="shell", function_name="toggle_color_scheme"),
         Output("color-scheme-toggle", "id"),
         Input("color-scheme-toggle", "checked"),
+    )
+
+    # Copy to clipboard (duplicates page)
+    app.clientside_callback(
+        ClientsideFunction(namespace="shell", function_name="copy_to_clipboard"),
+        Output("btn-dupes-copy", "disabled"),
+        Input("btn-dupes-copy", "n_clicks"),
+        State("store-dupes-output", "data"),
+        prevent_initial_call=True,
     )
 
     # Active nav highlight

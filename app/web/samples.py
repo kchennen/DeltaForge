@@ -5,8 +5,37 @@ from __future__ import annotations
 import base64
 import io
 
-# Text samples ##########################################################################
+# Duplicates sample #####################################################################
+SAMPLE_DUPLICATES = "\n".join(
+    [
+        "apple",
+        "banana",
+        "apple",
+        "cherry",
+        "banana",
+        "apple",
+        "date",
+        "cherry",
+        "elderberry",
+        "banana",
+        "fig",
+        "apple",
+        "grape",
+        "banana",
+        "cherry",
+        "apple",
+        "date",
+        "elderberry",
+        "honeydew",
+        "kiwi",
+        "lemon",
+        "mango",
+        "banana",
+        "nectarine",
+    ]
+)
 
+# Text samples ##########################################################################
 SAMPLE_TEXT_A = """\
 #!/usr/bin/env python3
 \"\"\"
@@ -343,8 +372,6 @@ def process_order(
 
 
 # Image samples #########################################################################
-
-
 def _make_sample_image(
     width: int = 400,
     height: int = 300,
@@ -417,8 +444,6 @@ def sample_image_b_uri() -> str:
 
 
 # PDF samples ###########################################################################
-
-
 def _make_sample_pdf(pages: list[list[str]]) -> bytes:
     """Generate a simple multi-page PDF with the given lines per page."""
     import fitz
@@ -541,8 +566,6 @@ def sample_pdf_b_uri() -> str:
 
 
 # Excel samples #########################################################################
-
-
 def _make_sample_xlsx(sheets: dict[str, list[list[str]]]) -> bytes:
     """Generate a simple xlsx workbook from a dict of sheet_name → rows (first row = header)."""
     from openpyxl import Workbook

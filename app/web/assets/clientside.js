@@ -27,4 +27,14 @@ window.dash_clientside.shell = {
         });
         return window.dash_clientside.no_update;
     },
+
+    /**
+     * Copy text to clipboard.
+     */
+    copy_to_clipboard: function (n_clicks, text) {
+        if (n_clicks && text) {
+            navigator.clipboard.writeText(text);
+        }
+        return false;
+    },
 };
