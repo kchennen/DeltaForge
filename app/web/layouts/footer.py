@@ -3,6 +3,7 @@ from dash import html
 from dash_iconify import DashIconify
 
 from app.web.layouts._constants import (
+    BIGEST_URL,
     GITHUB_ISSUES_URL,
     GITHUB_URL,
     TWITTER_URL,
@@ -13,7 +14,7 @@ footer = dmc.AppShellFooter(
     id="app-footer",
     children=dmc.Group(
         children=[
-            # ── Tagline ──────────────────────────────────────────────────
+            # Tagline ###################################################################
             dmc.Group(
                 children=[
                     html.Span(
@@ -29,7 +30,7 @@ footer = dmc.AppShellFooter(
                 align="center",
                 wrap="nowrap",
             ),
-            # ── Attribution ───────────────────────────────────────────────
+            # Attribution ###############################################################
             dmc.Group(
                 [
                     dmc.Text("Hosted by ", fz="xs", c="dimmed", span=True),
@@ -45,7 +46,7 @@ footer = dmc.AppShellFooter(
                     ),
                     dmc.Anchor(
                         "BiGEst-ICube platform",
-                        href="https://bigest.icube.unistra.fr/",
+                        href=BIGEST_URL,
                         target="_blank",
                         fz="xs",
                         c="blue",
@@ -54,7 +55,7 @@ footer = dmc.AppShellFooter(
                 gap=0,
                 align="center",
             ),
-            # ── Social + contact links ────────────────────────────────────
+            # Social + contact links ####################################################
             dmc.Group(
                 children=[
                     html.A(

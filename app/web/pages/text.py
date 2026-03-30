@@ -1,81 +1,184 @@
+"""Text diff page — full-featured text comparison with granularity, views, and tools."""
+
+from __future__ import annotations
+
 import dash
 import dash_mantine_components as dmc
-from dash import Input, Output, State, callback, html
+from dash import html
 
-from app.engine.text import diff_stats, diff_text
-from app.web.components.diff_viewer import render_split_diff
-
-dash.register_page(__name__, path="/text", title="Text Diff")
+dash.register_page(__name__, path="/text", title="Text Diff — Diffy")
 
 layout = dmc.Container(
-    [
-        dmc.Grid(
-            [
-                dmc.GridCol(
-                    dmc.Textarea(
-                        id="text-input-left",
-                        placeholder="Paste original text...",
-                        minRows=12,
-                        maxRows=20,
-                        autosize=True,
-                        className="dc-mono-input",
-                        styles={
-                            "input": {
-                                "fontFamily": "'JetBrains Mono','Fira Code',monospace",
-                                "fontSize": "13px",
-                                "lineHeight": "1.6",
-                            }
-                        },
-                    ),
-                    span=6,
+    children=[
+        dmc.Stack(
+            children=[
+                # Page header + action bar #########################################################
+                dmc.Group(
+                    className="dc-page-header",
+                    children=[
+                        dmc.Group(
+                            children=[
+                                dmc.ThemeIcon(
+                                    html.Span("≡", style={"fontSize": "17px", "lineHeight": "1"}),
+                                    size=36,
+                                    radius="md",
+                                    color="violet",
+                                    variant="light",
+                                ),
+                                dmc.Title("Text Diff", order=2, style={"lineHeight": "1"}),
+                            ],
+                            gap="sm",
+                            align="center",
+                        ),
+                        dmc.Group(
+                            children=[
+                                dmc.Button(
+                                    "Compare",
+                                    id="btn-compare",
+                                    size="sm",
+                                    color="violet",
+                                    leftSection=html.Span("⚡"),
+                                ),
+                                dmc.Button(
+                                    "Reset",
+                                    id="btn-clear",
+                                    size="sm",
+                                    variant="light",
+                                    color="gray",
+                                ),
+                                dmc.Button(
+                                    "Example",
+                                    id="btn-text-example",
+                                    size="sm",
+                                    variant="subtle",
+                                    color="violet",
+                                ),
+                            ],
+                            gap="xs",
+                        ),
+                    ],
+                    justify="space-between",
+                    align="center",
+                    wrap="wrap",
                 ),
-                dmc.GridCol(
-                    dmc.Textarea(
-                        id="text-input-right",
-                        placeholder="Paste modified text...",
-                        minRows=12,
-                        maxRows=20,
-                        autosize=True,
-                        className="dc-mono-input",
-                        styles={
-                            "input": {
-                                "fontFamily": "'JetBrains Mono','Fira Code',monospace",
-                                "fontSize": "13px",
-                                "lineHeight": "1.6",
-                            }
-                        },
-                    ),
-                    span=6,
+                # Diff output (primary) #################################################
+                html.Div(
+                    [
+                        dmc.LoadingOverlay(
+                            visible=False,
+                            id="diff-loading-overlay",
+                            loaderProps={"type": "dots", "color": "violet"},
+                            overlayProps={"radius": "md", "blur": 2},
+                        ),
+                        html.Div(id="diff-stats-container"),
+                        html.Div(id="diff-output-container"),
+                    ],
+                    style={"position": "relative"},
+                ),
+                # Text inputs (secondary) ###############################################
+                dmc.Paper(
+                    children=[
+                        dmc.Group(
+                            children=[
+                                dmc.Badge(
+                                    "A  Original",
+                                    color="red",
+                                    variant="light",
+                                    size="sm",
+                                ),
+                                dmc.ActionIcon(
+                                    "⇌",
+                                    id="btn-swap",
+                                    variant="subtle",
+                                    color="gray",
+                                    size="sm",
+                                    radius="md",
+                                    mx="auto",
+                                    attributes={"aria-label": "Swap inputs"},
+                                    style={"fontSize": "16px"},
+                                ),
+                                dmc.Badge(
+                                    "B  Modified",
+                                    color="green",
+                                    variant="light",
+                                    size="sm",
+                                ),
+                            ],
+                            justify="space-between",
+                            align="center",
+                            mb="xs",
+                        ),
+                        dmc.Grid(
+                            children=[
+                                dmc.GridCol(
+                                    dmc.Textarea(
+                                        id="text-input-left",
+                                        placeholder="Paste original text here…",
+                                        minRows=12,
+                                        maxRows=20,
+                                        autosize=True,
+                                        styles={
+                                            "input": {
+                                                "fontFamily": ("'JetBrains Mono','Fira Code',ui-monospace,monospace"),
+                                                "fontSize": "13px",
+                                                "lineHeight": "1.6",
+                                                "borderRadius": "10px",
+                                            }
+                                        },
+                                    ),
+                                    span=6,
+                                ),
+                                dmc.GridCol(
+                                    dmc.Textarea(
+                                        id="text-input-right",
+                                        placeholder="Paste modified text here…",
+                                        minRows=12,
+                                        maxRows=20,
+                                        autosize=True,
+                                        styles={
+                                            "input": {
+                                                "fontFamily": ("'JetBrains Mono','Fira Code',ui-monospace,monospace"),
+                                                "fontSize": "13px",
+                                                "lineHeight": "1.6",
+                                                "borderRadius": "10px",
+                                            }
+                                        },
+                                    ),
+                                    span=6,
+                                ),
+                            ],
+                            gutter="md",
+                        ),
+                    ],
+                    p="md",
+                    withBorder=True,
+                    radius="md",
                 ),
             ],
-            gutter="md",
+            gap="md",
         ),
-        dmc.Group(
+        # Hidden placeholders for sidebar components (rendered dynamically in navbar)
+        html.Div(
             [
-                dmc.Button("Compare", id="compare-btn", color="violet"),
-                dmc.Button("Reset", id="clear-btn", variant="subtle"),
+                dmc.SegmentedControl(id="sb-granularity-toggle", data=[], value="line"),
+                dmc.SegmentedControl(id="sb-view-mode-toggle", data=[], value="split"),
+                dmc.Switch(id="sb-auto-compare-switch"),
+                dmc.Select(id="rows-select", data=[], value="20"),
+                *[
+                    html.Button(id=f"sb-tool-{t}")
+                    for t in [
+                        "lowercase",
+                        "sort-lines",
+                        "trim-whitespace",
+                        "normalize-linebreaks",
+                        "remove-blanks",
+                        "squeeze-whitespace",
+                    ]
+                ],
             ],
-            mt="md",
+            style={"display": "none"},
         ),
-        html.Div(id="diff-stats-container"),
-        html.Div(id="diff-output-container", className="dc-fade-in"),
     ],
     size="xl",
-    py="lg",
+    py="md",
 )
-
-
-@callback(
-    Output("diff-output-container", "children"),
-    Output("diff-stats-container", "children"),
-    Input("compare-btn", "n_clicks"),
-    State("text-input-left", "value"),
-    State("text-input-right", "value"),
-    prevent_initial_call=True,
-)
-def compute_diff(n_clicks, text_left, text_right):
-    if not text_left or not text_right:
-        return dmc.Alert("Please paste text in both panels.", color="yellow"), None
-    chunks = diff_text(text_left, text_right, granularity="line")
-    stats = diff_stats(chunks)
-    return render_split_diff(chunks), None  # stats bar added in Sprint 2

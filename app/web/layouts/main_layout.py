@@ -9,17 +9,18 @@ from app.web.layouts.navbar import navbar
 
 layout = dmc.MantineProvider(
     id="mantine-provider",
-    forceColorScheme="light",
     theme=THEME,
     children=[
-        dcc.Store(id="color-scheme-store", storage_type="local", data="light"),
         dcc.Location(id="url", refresh=False),
         dmc.AppShell(
             id="app-shell",
             children=[
                 header,
                 navbar,
-                dmc.AppShellMain(children=dash.page_container),
+                dmc.AppShellMain(
+                    children=dash.page_container,
+                    style={"minHeight": "calc(100vh - 120px)"},
+                ),
                 footer,
             ],
             header={"height": 60},

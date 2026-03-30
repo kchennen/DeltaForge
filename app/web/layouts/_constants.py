@@ -1,26 +1,29 @@
+import os
+
 from dash import html
 from dash_iconify import DashIconify
 
-# ── External links ────────────────────────────────────────────────────────────
+# URL prefix ######################################################################################
+BASE_URL = os.environ.get("URL_BASE_PATHNAME", "/")
+
+# External links ##################################################################################
 GITHUB_URL = "https://github.com/kchennen/DeltaForge"
 GITHUB_ISSUES_URL = f"{GITHUB_URL}/issues/new"
 TWITTER_URL = "https://x.com/conerade67"
+BIGEST_URL = "https://bigest.icube.unistra.fr/"
 
-# ── Navigation links (label, href) ───────────────────────────────────────────
+# Navigation links (label, href) ##################################################################
 NAV_LINKS: list[tuple[str, str]] = [
-    # ("Duplicates", "/duplicates"),
-    # ("Text", "/text"),
+    ("Text", f"{BASE_URL.rstrip('/')}/text"),
 ]
 
-# ── Theme ─────────────────────────────────────────────────────────────────────
+# Theme ############################################################################################
 THEME = {
     "primaryColor": "violet",
     "defaultRadius": "md",
     "fontFamily": ("Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"),
     "headings": {
-        "fontFamily": (
-            "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-        ),
+        "fontFamily": ("Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"),
         "fontWeight": "700",
     },
     "components": {
@@ -33,7 +36,7 @@ THEME = {
 NAVBAR_WIDTH = 220
 
 
-# ── Reusable helpers ─────────────────────────────────────────────────────────
+# Reusable helpers ################################################################################
 def nav_link(label: str, href: str) -> html.A:
     return html.A(label, href=href, className="dc-nav-link")
 

@@ -10,9 +10,6 @@ from app.web.server import server
 
 _PAGES_DIR = Path(__file__).parent / "pages"
 
-_HLJS_CSS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-_HLJS_JS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
-
 
 def create_app(
     url_base_pathname: str = os.environ.get("URL_BASE_PATHNAME", "/"),
@@ -33,8 +30,7 @@ def create_app(
         url_base_pathname=url_base_pathname,
         use_pages=True,
         pages_folder=str(_PAGES_DIR),
-        external_stylesheets=[*dmc.styles.ALL, _HLJS_CSS],
-        external_scripts=[_HLJS_JS],
+        external_stylesheets=[*dmc.styles.ALL],
         suppress_callback_exceptions=True,
     )
 

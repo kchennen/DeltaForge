@@ -1,16 +1,13 @@
-import os
-
 import dash_mantine_components as dmc
 from dash import html
+from dash_iconify import DashIconify
 
-from app.web.layouts._constants import NAV_LINKS, nav_link
-
-_HOME = os.environ.get("URL_BASE_PATHNAME", "/")
+from app.web.layouts._constants import BASE_URL, NAV_LINKS, nav_link
 
 header = dmc.AppShellHeader(
     children=dmc.Group(
         children=[
-            # ── Brand ─────────────────────────────────────────────────────
+            # Brand #####################################################################
             html.A(
                 dmc.Group(
                     children=[
@@ -21,22 +18,30 @@ header = dmc.AppShellHeader(
                     align="center",
                     wrap="nowrap",
                 ),
-                href=_HOME,
+                href=BASE_URL,
                 style={"textDecoration": "none"},
             ),
-            # ── Nav + theme toggle ────────────────────────────────────────
+            # Nav + theme toggle ########################################################
             dmc.Group(
                 children=[
+                    # Nav links #########################################################
                     *[nav_link(label, href) for label, href in NAV_LINKS],
-                    dmc.ActionIcon(
-                        id="btn-color-scheme",
-                        children=html.Span("◑", className="dc-theme-icon"),
-                        variant="subtle",
-                        color="gray",
-                        size="sm",
-                        radius="md",
+                    # Theme toggle ######################################################
+                    dmc.Switch(
+                        id="color-scheme-toggle",
+                        offLabel=DashIconify(
+                            icon="radix-icons:sun",
+                            width=15,
+                            color="var(--mantine-color-yellow-8)",
+                        ),
+                        onLabel=DashIconify(
+                            icon="radix-icons:moon",
+                            width=15,
+                            color="var(--mantine-color-yellow-6)",
+                        ),
+                        persistence=True,
+                        color="grey",
                         ml="xs",
-                        attributes={"aria-label": "Toggle dark mode"},
                     ),
                 ],
                 gap=4,

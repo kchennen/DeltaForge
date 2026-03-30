@@ -10,6 +10,8 @@ import difflib
 from dataclasses import dataclass, field
 from enum import Enum
 
+import diff_match_patch as dmp_module
+
 
 class DiffType(Enum):
     """Type of difference for a chunk of text."""
@@ -149,3 +151,79 @@ def diff_stats(chunks: list[DiffChunk]) -> dict[str, int]:
         "lines_removed": removed,
         "lines_unchanged": unchanged,
     }
+
+
+@dataclass(frozen=True)
+class InlineSegment:
+    """A segment within a line for word/char-level highlighting.
+
+    Used to mark sub-line changes when granularity is 'word' or 'char'.
+    """
+
+    text: str
+    type: DiffType
+
+
+def diff_inline(
+    text_a: str,
+    text_b: str,
+    *,
+    granularity: str = "word",
+) -> list[InlineSegment]:
+    """Compute a fine-grained inline diff using diff-match-patch.
+
+    Returns a flat list of InlineSegment objects representing sub-line
+    differences at word or character level.
+
+    Args:
+        text_a: Original text.
+        text_b: Modified text.
+        granularity: 'word' or 'char'.
+
+    Returns:
+        A list of InlineSegment objects.
+    """
+    dmp = dmp_module.diff_match_patch()
+    diffs = dmp.diff_main(text_a, text_b)
+
+    if granularity == "word":
+        dmp.diff_cleanupSemantic(diffs)
+    else:
+        dmp.diff_cleanupEfficiency(diffs)
+
+    segments: list[InlineSegment] = []
+    type_map = {0: DiffType.EQUAL, -1: DiffType.DELETE, 1: DiffType.INSERT}
+
+    for op, text in diffs:
+        if text:
+            segments.append(InlineSegment(text=text, type=type_map[op]))
+
+    return segments
+
+
+def get_line_inline_segments(
+    old_line: str,
+    new_line: str,
+    *,
+    granularity: str = "word",
+) -> tuple[list[InlineSegment], list[InlineSegment]]:
+    """Get inline diff segments for a single pair of lines.
+
+    Returns two lists of segments: one for the old line (with DELETE highlights)
+    and one for the new line (with INSERT highlights).
+    """
+    segments = diff_inline(old_line, new_line, granularity=granularity)
+
+    old_segments: list[InlineSegment] = []
+    new_segments: list[InlineSegment] = []
+
+    for seg in segments:
+        if seg.type == DiffType.EQUAL:
+            old_segments.append(seg)
+            new_segments.append(seg)
+        elif seg.type == DiffType.DELETE:
+            old_segments.append(seg)
+        elif seg.type == DiffType.INSERT:
+            new_segments.append(seg)
+
+    return old_segments, new_segments

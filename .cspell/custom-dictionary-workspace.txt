@@ -2,11 +2,13 @@
 abstra
 Abstra
 asyncio
+BIGEST
 Blaireau
 Cascadia
 celerybeat
 certifi
 CHENNEN
+clientside
 codz
 colorama
 Connor
@@ -22,6 +24,8 @@ envrc
 Fira
 fitz
 flet
+fontsize
+fulfilment
 Glassmorphic
 gsub
 gthread
@@ -49,8 +53,10 @@ noopener
 noreferrer
 nosetests
 numpy
+officedocument
 openmoji
 openpyxl
+openxmlformats
 pathspec
 pipenv
 Pipfile
@@ -75,6 +81,7 @@ Scrapy
 sdist
 Segoe
 setuptools
+spreadsheetml
 Spyder
 spyderproject
 spyproject
