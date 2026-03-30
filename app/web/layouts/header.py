@@ -1,7 +1,11 @@
+import os
+
 import dash_mantine_components as dmc
 from dash import html
 
 from app.web.layouts._constants import NAV_LINKS, nav_link
+
+_HOME = os.environ.get("URL_BASE_PATHNAME", "/")
 
 header = dmc.AppShellHeader(
     children=dmc.Group(
@@ -17,7 +21,7 @@ header = dmc.AppShellHeader(
                     align="center",
                     wrap="nowrap",
                 ),
-                href="/",
+                href=_HOME,
                 style={"textDecoration": "none"},
             ),
             # ── Nav + theme toggle ────────────────────────────────────────

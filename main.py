@@ -1,4 +1,8 @@
+import os
+
 from app.web import app
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    host = os.environ.get("HOST", "localhost")
+    port = int(os.environ.get("PORT", "8055"))
+    app.run(debug=True, host=host, port=port)

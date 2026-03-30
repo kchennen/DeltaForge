@@ -6,10 +6,9 @@
 # Configuration
 # ---------------------------------------------------------------------------
 UV         := uv
-PYTHON     := $(UV) run python
-
-URL_PREFIX ?= /deltaforge/
-DEBUG      ?=          # used by serve-dev only (make serve-dev DEBUG=--debug)
+ENV_FILE   := $(wildcard .env)
+UV_RUN     := $(UV) run $(if $(ENV_FILE),--env-file $(ENV_FILE))
+PYTHON     := $(UV_RUN) python
 
 
 # ---------------------------------------------------------------------------
@@ -37,8 +36,7 @@ dev: install
 
 ## Start app with Gunicorn (production)
 run: install
-	URL_BASE_PATHNAME=$(URL_PREFIX) \
-		$(UV) run gunicorn -c gunicorn.conf.py "app.web:server"
+	$(UV_RUN) gunicorn -c gunicorn.conf.py "app.web:server"
 
 ## Lint code with Ruff
 lint:

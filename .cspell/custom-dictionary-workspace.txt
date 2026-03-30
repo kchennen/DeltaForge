@@ -3,6 +3,7 @@ abstra
 Abstra
 asyncio
 Blaireau
+Cascadia
 celerybeat
 certifi
 CHENNEN
@@ -18,10 +19,14 @@ Diffy
 dmypy
 emojione
 envrc
+Fira
 fitz
 flet
 Glassmorphic
+gsub
+gthread
 gunicorn
+hashability
 htmlcov
 iconify
 idna
@@ -30,6 +35,7 @@ ipynb
 ipython
 itsdangerous
 KCHENNEN
+keepends
 Kirsley
 librt
 logomark

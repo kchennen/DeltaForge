@@ -14,14 +14,23 @@ _HLJS_CSS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/g
 _HLJS_JS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
 
 
-def create_app() -> Dash:
-    """Create and configure the Dash app."""
-    url_base = os.environ.get("URL_BASE_PATHNAME", "/")
+def create_app(
+    url_base_pathname: str = os.environ.get("URL_BASE_PATHNAME", "/"),
+) -> Dash:
+    """Create and configure the Dash application.
+
+    Args:
+        url_base_pathname: URL prefix for the Dash app.
+
+    Returns:
+        Configured Dash application instance.
+    """
 
     dash_app = Dash(
         name=__name__,
+        title="DeltaForge",
         server=server,
-        url_base_pathname=url_base,
+        url_base_pathname=url_base_pathname,
         use_pages=True,
         pages_folder=str(_PAGES_DIR),
         external_stylesheets=[*dmc.styles.ALL, _HLJS_CSS],

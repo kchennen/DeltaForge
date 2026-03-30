@@ -6,11 +6,11 @@ description = "Toolbox utilities for data wrangling."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "dash>=4.0.0",
+    "dash>=4.1.0",
     "dash-iconify>=0.1.2",
-    "dash-mantine-components>=2.6.0",
-    "gunicorn>=23.0.0",
-    "polars>=1.38.1",
+    "dash-mantine-components>=2.6.1",
+    "gunicorn>=25.3.0",
+    "polars>=1.39.3",
 ]
 
 [tool.uv.workspace]
@@ -34,42 +34,30 @@ exclude = ["tests/"]
 
 [[tool.mypy.overrides]]
 module = [
-    "dash",
-    "dash.*",
-    "dash_mantine_components",
-    "dash_mantine_components.*",
-    "diff_match_patch",
-    "diff_match_patch.*",
+    "dash>=4.1.0",
+    "dash_iconify>=0.1.2",
+    "dash_mantine_components>=2.6.1",
+    "diff_match_patch>=20241021",
     "fitz",
-    "fitz.*",
-    "numpy",
-    "numpy.*",
-    "PIL",
-    "PIL.*",
-    "pixelmatch",
-    "pixelmatch.*",
-    "playwright",
-    "playwright.*",
-    "openpyxl",
-    "openpyxl.*",
-    "polars",
-    "polars.*",
-    "reportlab",
-    "reportlab.*",
-    "dash_iconify",
-    "dash_iconify.*",
+    "numpy>=2.4.4",
+    "PIL>=1.1.6",
+    "pixelmatch>=0.1.0",
+    "playwright>=1.30.0",
+    "openpyxl>=3.0.0",
+    "polars>=1.39.3",
+    "reportlab>=4.4.10",
 ]
 ignore_missing_imports = true
 follow_untyped_imports = true
 
 [tool.pytest.ini_options]
-testpaths = ["apps"]
+testpaths = ["tests"]
 pythonpath = ["."]
 
 [dependency-groups]
 dev = [
     "mypy>=1.19.1",
     "pytest>=9.0.2",
-    "ruff>=0.15.4",
+    "ruff>=0.15.8",
     "watchdog>=6.0.0",
 ]
