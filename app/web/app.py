@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import dash_mantine_components as dmc
@@ -15,9 +16,12 @@ _HLJS_JS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight
 
 def create_app() -> Dash:
     """Create and configure the Dash app."""
+    url_base = os.environ.get("URL_BASE_PATHNAME", "/")
+
     dash_app = Dash(
         name=__name__,
         server=server,
+        url_base_pathname=url_base,
         use_pages=True,
         pages_folder=str(_PAGES_DIR),
         external_stylesheets=[*dmc.styles.ALL, _HLJS_CSS],

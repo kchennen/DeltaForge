@@ -1,5 +1,6 @@
 import dash_mantine_components as dmc
 from dash import html
+from dash_iconify import DashIconify
 
 from app.web.layouts._constants import (
     GITHUB_ISSUES_URL,
@@ -29,10 +30,30 @@ footer = dmc.AppShellFooter(
                 wrap="nowrap",
             ),
             # ── Attribution ───────────────────────────────────────────────
-            # html.Span(
-            #     "Designed for your pleasure and my leisure",
-            #     className="dc-footer-attribution",
-            # ),
+            dmc.Group(
+                [
+                    dmc.Text("Hosted by ", fz="xs", c="dimmed", span=True),
+                    DashIconify(
+                        icon="mdi:server-network",
+                        width=14,
+                        style={
+                            "marginLeft": 4,
+                            "marginRight": 4,
+                            "verticalAlign": "middle",
+                            "display": "inline-block",
+                        },
+                    ),
+                    dmc.Anchor(
+                        "BiGEst-ICube platform",
+                        href="https://bigest.icube.unistra.fr/",
+                        target="_blank",
+                        fz="xs",
+                        c="blue",
+                    ),
+                ],
+                gap=0,
+                align="center",
+            ),
             # ── Social + contact links ────────────────────────────────────
             dmc.Group(
                 children=[
