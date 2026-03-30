@@ -157,27 +157,6 @@ layout = dmc.Container(
             ],
             gap="md",
         ),
-        # Hidden placeholders for sidebar components (rendered dynamically in navbar)
-        html.Div(
-            [
-                dmc.SegmentedControl(id="sb-granularity-toggle", data=[], value="line"),
-                dmc.SegmentedControl(id="sb-view-mode-toggle", data=[], value="split"),
-                dmc.Switch(id="sb-auto-compare-switch"),
-                dmc.Select(id="rows-select", data=[], value="20"),
-                *[
-                    html.Button(id=f"sb-tool-{t}")
-                    for t in [
-                        "lowercase",
-                        "sort-lines",
-                        "trim-whitespace",
-                        "normalize-linebreaks",
-                        "remove-blanks",
-                        "squeeze-whitespace",
-                    ]
-                ],
-            ],
-            style={"display": "none"},
-        ),
     ],
     size="xl",
     py="md",

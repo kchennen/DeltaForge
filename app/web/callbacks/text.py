@@ -69,12 +69,14 @@ def compute_diff(
 @callback(
     Output("text-input-left", "value"),
     Output("text-input-right", "value"),
+    Output("diff-output-container", "children", allow_duplicate=True),
+    Output("diff-stats-container", "children", allow_duplicate=True),
     Input("btn-clear", "n_clicks"),
     prevent_initial_call=True,
 )
-def clear_inputs(n_clicks: int | None) -> tuple[str, str]:
-    """Clear both text inputs."""
-    return "", ""
+def clear_inputs(n_clicks: int | None) -> tuple[str, str, str, str]:
+    """Clear both text inputs and diff output."""
+    return "", "", "", ""
 
 
 @callback(

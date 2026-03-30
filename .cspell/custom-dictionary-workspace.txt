@@ -31,6 +31,7 @@ gsub
 gthread
 gunicorn
 hashability
+Héllo
 htmlcov
 iconify
 idna
@@ -49,6 +50,7 @@ Marimo
 markupsafe
 mkdocs
 mypy
+nddd
 noopener
 noreferrer
 nosetests
@@ -80,6 +82,7 @@ scrapy
 Scrapy
 sdist
 Segoe
+segs
 setuptools
 spreadsheetml
 Spyder
