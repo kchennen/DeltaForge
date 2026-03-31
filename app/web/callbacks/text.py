@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 import dash_mantine_components as dmc
 from dash import Input, Output, State, callback, ctx, html, no_update
 
@@ -37,7 +39,7 @@ def compute_diff(
     granularity: str,
     view_mode: str,
     auto_on: bool,
-) -> tuple[dmc.Grid | html.Div | str, dmc.Paper | dmc.Grid | str]:
+) -> tuple[Any, ...]:
     """Compute and display the text diff."""
     triggered = ctx.triggered_id
 

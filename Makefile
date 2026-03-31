@@ -49,7 +49,7 @@ format:
 
 ## Type-check with mypy
 typecheck:
-	$(UV) run mypy apps/
+	$(UV) run mypy app/
 
 ## Run tests
 test:

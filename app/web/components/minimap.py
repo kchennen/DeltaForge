@@ -110,7 +110,7 @@ def render_diff_minimap(
             blocks,
             id=minimap_id,
             style={"position": "relative", "width": "100%", "height": "100%"},
-            **{"data-scroll-target": scroll_target_id},
+            **{"data-scroll-target": scroll_target_id},  # type: ignore[arg-type]
         ),
         className="dc-minimap-wrapper",
     )
