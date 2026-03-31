@@ -109,8 +109,8 @@ app/
 - [x] Duplicate counter
 - [x] Light & dark themes
 - [x] CI pipeline
-- [ ] CSV diff
 - [ ] JSON / YAML diff
+- [ ] End-to-end data encryption or local client
 - [ ] Folder diff
 - [ ] Drag & drop file upload
 - [ ] Shareable diff links
