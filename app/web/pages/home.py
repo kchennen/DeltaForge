@@ -4,6 +4,8 @@ import dash
 import dash_mantine_components as dmc
 from dash import html
 
+from app.web.layouts._constants import BASE_URL
+
 dash.register_page(__name__, path="/", title="Home")
 
 # Each tool gets a Unicode glyph that reads as "designed", not emoji
@@ -124,7 +126,7 @@ def _feature_card(tool: dict) -> html.A:
             radius="lg",
             style={"display": "flex", "flexDirection": "column", "height": "100%"},
         ),
-        href=tool["href"],
+        href=f"{BASE_URL.rstrip('/')}{tool['href']}",
         className="dc-feature-card-link",
     )
 
