@@ -1,5 +1,5 @@
 # DeltaForge — Project management tasks
-.PHONY: install dev lint format typecheck test test-verbose ci clean
+.PHONY: install dev lint format typecheck test test-verbose ci clean hooks
 
 
 # ---------------------------------------------------------------------------
@@ -61,6 +61,10 @@ test-verbose:
 
 ## Run lint, typecheck, and tests
 ci: lint typecheck test
+
+## Install pre-commit hooks
+hooks:
+	$(UV) run pre-commit install --hook-type pre-commit --hook-type pre-push
 
 ## Remove cache directories
 clean:

@@ -51,6 +51,7 @@ marimo
 Marimo
 markupsafe
 mkdocs
+multipage
 mypy
 nddd
 noopener
@@ -66,6 +67,7 @@ pdfs
 pipenv
 Pipfile
 pixelmatch
+pixmap
 plotly
 pluggy
 pybuilder
@@ -86,12 +88,14 @@ Scrapy
 sdist
 Segoe
 segs
+serialisable
 setuptools
 spreadsheetml
 Spyder
 spyderproject
 spyproject
 testpaths
+tobytes
 urllib
 venv
 webassets

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import dash_mantine_components as dmc
+from dash import html
 
 from app.web.layouts._constants import BASE_URL
 
@@ -431,12 +432,77 @@ def image_diff_sidebar() -> dmc.Stack:
     )
 
 
+def pdf_diff_sidebar() -> dmc.Stack:
+    """Sidebar controls for the PDF diff page."""
+    return dmc.Stack(
+        children=[
+            # View mode
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "View",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.SegmentedControl(
+                        id="pdf-view-mode",
+                        data=[
+                            {"label": "Text", "value": "text"},
+                            {"label": "Visual", "value": "visual"},
+                            {"label": "Redline", "value": "redline"},
+                        ],
+                        value="text",
+                        size="xs",
+                        radius="md",
+                        fullWidth=True,
+                    ),
+                ],
+                gap="xs",
+            ),
+            dmc.Divider(),
+            # Page navigation — shown after compare
+            html.Div(
+                dmc.Stack(
+                    children=[
+                        dmc.Text(
+                            "Page",
+                            size="xs",
+                            fw=600,
+                            c="dimmed",
+                            tt="uppercase",
+                            lts="0.06em",
+                        ),
+                        dmc.Select(
+                            id="pdf-page-select",
+                            data=[],
+                            value=None,
+                            size="xs",
+                            radius="md",
+                            allowDeselect=False,
+                            placeholder="Compare PDFs first…",
+                        ),
+                        html.Div(id="pdf-page-badge"),
+                    ],
+                    gap="xs",
+                ),
+                id="pdf-page-nav",
+                style={"display": "none"},
+            ),
+        ],
+        gap="md",
+        p="md",
+    )
+
+
 # Map pathname → sidebar builder. None means no sidebar.
 _SIDEBAR_MAP: dict[str, object] = {
     "/duplicates": duplicates_sidebar,
     "/text": text_diff_sidebar,
     "/image": image_diff_sidebar,
-    # "/pdf": pdf_diff_sidebar,
+    "/pdf": pdf_diff_sidebar,
     # "/excel": excel_diff_sidebar,
 }
 

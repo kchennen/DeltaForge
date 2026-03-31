@@ -53,10 +53,7 @@ def analyze(text: str) -> DuplicateResult:
         if line not in first_seen:
             first_seen[line] = i
 
-    entries = [
-        DuplicateEntry(value=k, count=v, first_line=first_seen[k])
-        for k, v in counter.items()
-    ]
+    entries = [DuplicateEntry(value=k, count=v, first_line=first_seen[k]) for k, v in counter.items()]
 
     return DuplicateResult(
         total_lines=len(lines),

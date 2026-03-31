@@ -46,6 +46,7 @@ pythonpath = ["."]
 [dependency-groups]
 dev = [
     "mypy>=1.19.1",
+    "pre-commit>=4.2.0",
     "pytest>=9.0.2",
     "ruff>=0.15.8",
     "watchdog>=6.0.0",

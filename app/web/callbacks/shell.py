@@ -29,7 +29,6 @@ def update_navbar(pathname: str | None) -> tuple[object, dict]:
     return sidebar or [], navbar_cfg
 
 
-
 # Clientside callbacks ##################################################################
 def register_clientside_callbacks(app: dash.Dash) -> None:
     """Register clientside callbacks that require the app instance to exist."""

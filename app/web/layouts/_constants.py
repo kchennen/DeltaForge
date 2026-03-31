@@ -17,7 +17,7 @@ NAV_LINKS: list[tuple[str, str]] = [
     ("Duplicates", f"{BASE_URL.rstrip('/')}/duplicates"),
     ("Text", f"{BASE_URL.rstrip('/')}/text"),
     ("Image", f"{BASE_URL.rstrip('/')}/image"),
-    # ("PDF", f"{BASE_URL.rstrip('/')}/pdf"),
+    ("PDF", f"{BASE_URL.rstrip('/')}/pdf"),
     # ("Excel", f"{BASE_URL.rstrip('/')}/excel"),
 ]
 
