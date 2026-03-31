@@ -158,3 +158,76 @@ def render_pdf_preview(filename: str | None = None) -> html.Div:
             ),
         ]
     )
+
+
+def render_excel_upload(upload_id: str, label: str = "Upload File") -> dmc.Stack:
+    """Render a drag-and-drop upload zone for Excel/CSV files.
+
+    Args:
+        upload_id: Dash component id for the dcc.Upload element.
+        label: Label shown above the upload zone.
+    """
+    return dmc.Stack(
+        children=[
+            dmc.Text(label, fw=500, size="sm"),
+            dcc.Upload(
+                id=upload_id,
+                children=html.Div(
+                    children=[
+                        dmc.Stack(
+                            children=[
+                                dmc.Text("Drag & drop or", size="sm", c="dimmed"),
+                                dmc.Button(
+                                    "Browse",
+                                    variant="light",
+                                    size="xs",
+                                    color="teal",
+                                ),
+                                dmc.Text(
+                                    "XLSX, CSV supported (max 20 MB)",
+                                    size="xs",
+                                    c="dimmed",
+                                ),
+                            ],
+                            align="center",
+                            gap="xs",
+                        ),
+                    ],
+                    style={
+                        "display": "flex",
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                        "height": "120px",
+                    },
+                ),
+                style={
+                    "border": "2px dashed var(--mantine-color-gray-4)",
+                    "borderRadius": "8px",
+                    "cursor": "pointer",
+                    "transition": "border-color 0.2s",
+                },
+                accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv",
+                multiple=False,
+                max_size=20 * 1024 * 1024,  # 20 MB
+            ),
+            html.Div(id=f"{upload_id}-preview"),
+        ],
+        gap="xs",
+    )
+
+
+def render_excel_preview(filename: str | None = None) -> html.Div:
+    """Render a filename badge after Excel/CSV upload."""
+    if not filename:
+        return html.Div()
+
+    return html.Div(
+        children=[
+            dmc.Badge(
+                filename,
+                color="teal",
+                variant="light",
+                leftSection=dmc.Text("📊", size="xs"),
+            ),
+        ]
+    )
