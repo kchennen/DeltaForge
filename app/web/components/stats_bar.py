@@ -165,3 +165,96 @@ def render_split_panel_headers(stats: dict[str, int]) -> dmc.Grid:
         gutter="md",
         mb=4,
     )
+
+
+def render_image_stats_bar(
+    mismatch_pct: float,
+    mismatch_pixels: int,
+    width_a: int,
+    height_a: int,
+    width_b: int,
+    height_b: int,
+    compared_width: int,
+    compared_height: int,
+) -> dmc.Paper:
+    """Render image diff statistics — mismatch percentage, pixel counts, dimensions."""
+    total_pixels = compared_width * compared_height
+    matched_pct = round(100 - mismatch_pct, 3)
+
+    pct_mismatch_bar = min(mismatch_pct, 100)
+    pct_match_bar = 100 - pct_mismatch_bar
+
+    bar_sections: list[html.Div] = []
+    if pct_mismatch_bar > 0:
+        bar_sections.append(
+            html.Div(
+                style={
+                    "width": f"{pct_mismatch_bar}%",
+                    "height": "5px",
+                    "backgroundColor": "var(--mantine-color-red-5)",
+                },
+            )
+        )
+    if pct_match_bar > 0:
+        bar_sections.append(
+            html.Div(
+                style={
+                    "width": f"{pct_match_bar}%",
+                    "height": "5px",
+                    "backgroundColor": "var(--mantine-color-green-5)",
+                },
+            )
+        )
+
+    same_size = width_a == width_b and height_a == height_b
+    if same_size:
+        size_text = f"{width_a}×{height_a}"
+    else:
+        size_text = f"A: {width_a}×{height_a} / B: {width_b}×{height_b} (compared {compared_width}×{compared_height})"
+
+    return dmc.Paper(
+        children=[
+            dmc.Stack(
+                children=[
+                    dmc.Group(
+                        children=[
+                            dmc.Badge(
+                                f"{mismatch_pct:.2f}% changed",
+                                color="red",
+                                variant="light",
+                                size="sm",
+                            ),
+                            dmc.Badge(
+                                f"{matched_pct:.2f}% identical",
+                                color="green",
+                                variant="light",
+                                size="sm",
+                            ),
+                            dmc.Text(
+                                f"{mismatch_pixels:,} / {total_pixels:,} pixels differ",
+                                size="xs",
+                                c="dimmed",
+                            ),
+                            dmc.Text(size_text, size="xs", c="dimmed", ml="auto"),
+                        ],
+                        gap="xs",
+                        wrap="wrap",
+                    ),
+                    html.Div(
+                        bar_sections,
+                        style={
+                            "display": "flex",
+                            "borderRadius": "3px",
+                            "overflow": "hidden",
+                            "width": "100%",
+                        },
+                    ),
+                ],
+                gap="xs",
+            ),
+        ],
+        p="sm",
+        withBorder=True,
+        radius="md",
+        mb="sm",
+    )

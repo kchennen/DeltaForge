@@ -38,3 +38,52 @@ window.dash_clientside.shell = {
         return false;
     },
 };
+
+window.dash_clientside.image = {
+    /**
+     * Update fade overlay opacity.
+     */
+    fade_opacity: function (value) {
+        return {
+            opacity: (value / 100).toString(),
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "auto",
+            display: "block",
+        };
+    },
+
+    /**
+     * Update swipe clip-path on image B.
+     */
+    swipe_clip: function (value) {
+        var right = 100 - value + "%";
+        return {
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "auto",
+            display: "block",
+            clipPath: "inset(0 " + right + " 0 0)",
+        };
+    },
+
+    /**
+     * Update swipe divider position.
+     */
+    swipe_divider: function (value) {
+        return {
+            position: "absolute",
+            top: "0",
+            left: value + "%",
+            width: "2px",
+            height: "100%",
+            backgroundColor: "white",
+            cursor: "ew-resize",
+            boxShadow: "0 0 3px rgba(0,0,0,0.4)",
+        };
+    },
+};

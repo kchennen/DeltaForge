@@ -12,6 +12,7 @@ clientside
 codz
 colorama
 Connor
+crossfade
 cursorignore
 cursorindexingignore
 cython
@@ -25,6 +26,7 @@ Fira
 fitz
 flet
 fontsize
+fromarray
 fulfilment
 Glassmorphic
 gsub
@@ -60,6 +62,7 @@ openmoji
 openpyxl
 openxmlformats
 pathspec
+pdfs
 pipenv
 Pipfile
 pixelmatch

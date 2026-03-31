@@ -18,8 +18,6 @@ from app.engine.duplicates import (
 
 
 # Analyze callback ###########################################################
-
-
 @callback(
     Output("store-dupes-result", "data"),
     Output("dupes-error-container", "children"),
@@ -36,17 +34,12 @@ def analyze_duplicates(_n: int, text: str | None) -> tuple[Any, Any]:
     data = {
         "total_lines": result.total_lines,
         "unique_count": result.unique_count,
-        "entries": [
-            {"value": e.value, "count": e.count, "first_line": e.first_line}
-            for e in result.entries
-        ],
+        "entries": [{"value": e.value, "count": e.count, "first_line": e.first_line} for e in result.entries],
     }
     return json.dumps(data), html.Div()
 
 
 # Render callback ############################################################
-
-
 @callback(
     Output("dupes-stats-container", "style"),
     Output("dupes-stats-grid", "children"),
@@ -214,8 +207,6 @@ def render_result(
 
 
 # Download callback ##########################################################
-
-
 @callback(
     Output("download-dupes", "data"),
     Input("btn-dupes-download", "n_clicks"),
@@ -231,8 +222,6 @@ def download_dupes(_n: int, output_text: str | None, fmt: str) -> Any:
 
 
 # Example callback ###########################################################
-
-
 @callback(
     Output("dupes-input", "value", allow_duplicate=True),
     Input("btn-dupes-example", "n_clicks"),
@@ -245,8 +234,6 @@ def load_example(_n: int) -> str:
 
 
 # Reset callback #############################################################
-
-
 @callback(
     Output("dupes-input", "value", allow_duplicate=True),
     Output("store-dupes-result", "data", allow_duplicate=True),
@@ -269,8 +256,6 @@ def reset_dupes(_n: int) -> tuple[Any, ...]:
 
 
 # Chart helpers #############################################################
-
-
 def _render_charts(
     all_entries: list[DuplicateEntry],
     n_singletons: int,

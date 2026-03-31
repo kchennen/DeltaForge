@@ -357,11 +357,85 @@ def duplicates_sidebar() -> dmc.Stack:
     )
 
 
+def image_diff_sidebar() -> dmc.Stack:
+    """Sidebar controls for the image diff page."""
+    return dmc.Stack(
+        children=[
+            # View mode
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "View",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.SegmentedControl(
+                        id="image-view-mode",
+                        data=[
+                            {"label": "Side by side", "value": "side-by-side"},
+                            {"label": "Highlight", "value": "highlight"},
+                            {"label": "Diff", "value": "diff"},
+                            {"label": "Fade", "value": "fade"},
+                            {"label": "Swipe", "value": "swipe"},
+                        ],
+                        value="side-by-side",
+                        orientation="vertical",
+                        size="xs",
+                        radius="md",
+                        fullWidth=True,
+                    ),
+                ],
+                gap="xs",
+            ),
+            dmc.Divider(),
+            # Sensitivity
+            dmc.Stack(
+                children=[
+                    dmc.Text(
+                        "Sensitivity",
+                        size="xs",
+                        fw=600,
+                        c="dimmed",
+                        tt="uppercase",
+                        lts="0.06em",
+                    ),
+                    dmc.Slider(
+                        id="threshold-slider",
+                        value=10,
+                        min=0,
+                        max=100,
+                        step=1,
+                        marks=[
+                            {"value": 0, "label": "0"},
+                            {"value": 50, "label": "50"},
+                            {"value": 100, "label": "100"},
+                        ],
+                        size="sm",
+                        color="teal",
+                        mb="lg",
+                    ),
+                    dmc.Text(
+                        "Higher = more tolerant of small differences",
+                        size="xs",
+                        c="dimmed",
+                    ),
+                ],
+                gap="xs",
+            ),
+        ],
+        gap="md",
+        p="md",
+    )
+
+
 # Map pathname → sidebar builder. None means no sidebar.
 _SIDEBAR_MAP: dict[str, object] = {
     "/duplicates": duplicates_sidebar,
     "/text": text_diff_sidebar,
-    # "/image": image_diff_sidebar,
+    "/image": image_diff_sidebar,
     # "/pdf": pdf_diff_sidebar,
     # "/excel": excel_diff_sidebar,
 }
